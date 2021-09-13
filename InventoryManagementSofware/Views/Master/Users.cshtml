@@ -1,0 +1,170 @@
+﻿@model IEnumerable<InventoryManagementSofware.Models.Login>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <style>
+        .pagination-circle {
+            display: inline-block;
+        }
+
+            .pagination-circle a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+                .pagination-circle a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+
+                .pagination-circle a:hover:not(.active) {
+                    background-color: mediumpurple;
+                }
+    </style>
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Users</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Users</a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <a href="@Url.Action("Createusers", "Master")" class="btn btn-primary">
+                    <i class="fas fa-plus-square"></i> Create
+                </a>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Users</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.username)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.password)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Role)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.password)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Role)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("EditCategory","Master", new { id = item.UserID})" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/1814074_draw_edit_pencile_write_icon.png" /></a>
+                                        <a href="@Url.Action("DeleteCategory","Master", new { id = item.UserID})" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/3844394_can_delete_remove_trash_icon.png" /></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+
+                        @{
+                            double totalPages = ViewBag.TotalPages;
+
+                            <ul class="pagination-circle">
+
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Previous", "Users", new { PageNumber = ViewBag.PageNumber })
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Previous", "Users", new { PageNumber = ViewBag.PageNumber - 1 })
+                                    </li>
+                                }
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    if (i == ViewBag.PageNumber)
+                                    {
+                                        <li class="active" style="float:left">
+                                            @Html.ActionLink(i.ToString(), "Users", new { PageNumber = i })
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="active" style="float:left">
+                                            @Html.ActionLink(i.ToString(), "Users", new { PageNumber = i })
+                                        </li>
+                                    }
+                                }
+                                @if (ViewBag.PageNumber == totalPages)
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Next", "Users", new { PageNumber = ViewBag.PageNumber })
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Next", "Users", new { PageNumber = ViewBag.PageNumber + 1 })
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>            <!-- Modal -->
+</div>
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        @*function Delete(id) {
+            alertify.confirm('Web Api CRUD Operations','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete","Employee")/'+id;
+            },null );
+        }*@
+    </script>
+
+
+}
+

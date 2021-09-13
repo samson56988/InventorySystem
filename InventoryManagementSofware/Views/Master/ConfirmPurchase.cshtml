@@ -1,0 +1,187 @@
+﻿@model IEnumerable<InventoryManagementSofware.Models.Purchaseproducts>
+
+@{
+    ViewBag.Title = "ConfirmPurchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    @*<style>
+        .pagination-circle {
+            display: inline-block;
+        }
+
+            .pagination-circle a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+                .pagination-circle a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+
+                .pagination-circle a:hover:not(.active) {
+                    background-color: mediumpurple;
+                }
+    </style>*@
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Confirm Purchase</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Confirm Purchase</a></li>
+            </ol>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("ConfirmPurchase", "Master", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                         Confirm Transaction
+                    </button>
+
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Confirm Purchase</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Purchaseprice)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Productname)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Quantity)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Date)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Total)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vendorname)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Purchaseprice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Productname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Vendorname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    
+                                    <td>
+                                        <a href="@Url.Action("EditCategory","Master", new { id = item.ProductID})" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/1814074_draw_edit_pencile_write_icon.png" /></a>
+                                        <a href="@Url.Action("DeleteCategory","Master", new { id = item.ProductID})" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/3844394_can_delete_remove_trash_icon.png" /></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                        <h3>Total Amount</h3>     
+                        <h4>$@ViewBag.Sum</h4>                  
+    @*@{
+                            double totalPages = ViewBag.TotalPages;
+
+                            <ul class="pagination-circle">
+
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Previous", "Product", new { PageNumber = ViewBag.PageNumber })
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Previous", "Product", new { PageNumber = ViewBag.PageNumber - 1 })
+                                    </li>
+                                }
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    if (i == ViewBag.PageNumber)
+                                    {
+                                        <li class="active" style="float:left">
+                                            @Html.ActionLink(i.ToString(), "Product", new { PageNumber = i })
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="active" style="float:left">
+                                            @Html.ActionLink(i.ToString(), "Product", new { PageNumber = i })
+                                        </li>
+                                    }
+                                }
+                                @if (ViewBag.PageNumber == totalPages)
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Next", "Product", new { PageNumber = ViewBag.PageNumber })
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="active" style="float:left">
+                                        @Html.ActionLink("Next", "Product", new { PageNumber = ViewBag.PageNumber + 1 })
+                                    </li>
+                                }
+                            </ul>
+                        }*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>            <!-- Modal -->
+</div>
+
+
+

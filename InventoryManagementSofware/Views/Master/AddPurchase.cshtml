@@ -1,0 +1,129 @@
+﻿@model InventoryManagementSofware.Models.Purchaseproducts
+
+@{
+    ViewBag.Title = "AddPurchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Purchase Product</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Purchase Product</a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-xxl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title bg-white">Purchase Product</h4>
+                </div>
+                <div class="card-body">
+                   @using (Html.BeginForm())
+                   {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TransactionNo, htmlAttributes: new { @class = "control-label col-md-6" })
+
+                                    @Html.EditorFor(model => model.TransactionNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                                    @Html.ValidationMessageFor(model => model.TransactionNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-6" })
+
+                                    @Html.DropDownListFor(model => model.ProductID, new SelectList(ViewBag.Product, "ProductID", "Productname"), "Select Product", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Purchaseprice, htmlAttributes: new { @class = "control-label col-md-6" })
+                                    @Html.EditorFor(model => model.Purchaseprice, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Purchaseprice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-6" })
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-6" })
+                                    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Vendor, htmlAttributes: new { @class = "control-label col-md-6" })
+                                    @Html.DropDownListFor(model => model.Vendor, new SelectList(ViewBag.Vendor, "VendorID", "Vendorname"), "Select Vendor", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Vendor, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus fa-lg"></i> Add
+                                </button>
+                                <a href="@Url.Action("ConfirmPurchase", "Master")" class="btn btn-primary">Confirm Transaction                                   
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                       
+                   }
+
+               
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        @*function Delete(id) {
+            alertify.confirm('Web Api CRUD Operations','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete","Employee")/'+id;
+            },null );
+        }*@
+    </script>
+
+
+}
+
